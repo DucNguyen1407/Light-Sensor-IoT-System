@@ -40,6 +40,13 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - **Power**: 3.3V LDO regulator (AMS1117-3.3)
 - **USB Interface**: For programming and power
 
+<img width="911" height="703" alt="{724AAEFE-A108-4B82-A2A6-C1E244EE5123}" src="https://github.com/user-attachments/assets/31b3d059-b66f-499a-99a6-17c05e9f50c3" />
+<img width="1202" height="477" alt="{54F1D695-76C1-47A6-922B-64C88FC60EC7}" src="https://github.com/user-attachments/assets/3f46a731-d146-4909-9b4a-576e4e953885" />
+<img width="1214" height="443" alt="{24AFFD49-AF94-4E3C-8B68-63BF6C2D32F3}" src="https://github.com/user-attachments/assets/c2479437-a2e8-48ed-801b-ca4c07abe4f3" />
+
+
+
+
 ## 💻 Software Stack
 
 ### Firmware (ESP32)
@@ -101,6 +108,9 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - Interactive tooltips
 - Responsive design
 
+<img width="1018" height="818" alt="{B0A483CB-B83C-4291-851D-7AF75FB11FCE}" src="https://github.com/user-attachments/assets/49cb5aa4-1230-4bd1-8e06-d6afc26dc8f8" />
+
+
 ## 🔮 Future Enhancements
 
 1. **WebSocket Integration**: Real-time bidirectional communication for instant updates
@@ -115,5 +125,3 @@ This IoT project implements a comprehensive light monitoring solution that colle
 ## 🤝 Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
-
-ystems course, demonstrating IoT concepts, hardware design, and full-stack web development skills.
