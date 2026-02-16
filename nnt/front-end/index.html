@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Hệ Thống Giám Sát ESP32</title>
+        <link rel="stylesheet" href="style.css">
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    </head>
+
+    <body>
+
+        <div class="container">
+            <h1>📊 ESP32 Lux Dashboard</h1>
+
+            <div class="card control-panel">
+                <h3>📥 Xuất Báo Cáo (CSV)</h3>
+                <div class="filter-group">
+                    <label>Thiết bị:</label>
+                    <select id="deviceSelect">
+                        <option value="">-- Chọn thiết bị --</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Từ ngày:</label>
+                    <input type="datetime-local" id="startDate">
+                </div>
+                <div class="filter-group">
+                    <label>Đến ngày:</label>
+                    <input type="datetime-local" id="endDate">
+                </div>
+                <button onclick="exportCSV()" class="btn-export">Tải CSV</button>
+            </div>
+
+            <div class="card">
+                <canvas id="luxChart"></canvas>
+            </div>
+
+            <div class="card table-container">
+                <h3>Dữ liệu chi tiết</h3>
+
+                <div class="pagination-controls">
+                    <label>Hiển thị:
+                        <select id="limitSelect" onchange="changeLimit()">
+                            <option value="10">10</option>
+                            <option value="20">20</option>
+                            <option value="50">50</option>
+                        </select>
+                    </label>
+                    <div class="page-nav">
+                        <button onclick="changePage(-1)">❮ Trước</button>
+                        <span id="pageInfo">Trang 1</span>
+                        <button onclick="changePage(1)">Sau ❯</button>
+                    </div>
+                </div>
+
+                <table id="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Device ID</th>
+                            <th>Lux</th>
+                            <th>Thời gian</th>
+                        </tr>
+                    </thead>
+                    <tbody id="data-body">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <script src="script.js"></script>
+    </body>
+
+</html>
