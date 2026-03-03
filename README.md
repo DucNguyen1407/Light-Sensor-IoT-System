@@ -97,7 +97,8 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - Interactive tooltips
 - Responsive design
 
-<img width="1018" height="818" alt="{B0A483CB-B83C-4291-851D-7AF75FB11FCE}" src="https://github.com/user-attachments/assets/49cb5aa4-1230-4bd1-8e06-d6afc26dc8f8" />
+<img width="1145" height="834" alt="{CF54610A-CD9C-435D-B40D-D840E8C8FA32}" src="https://github.com/user-attachments/assets/c18394af-d797-4b0d-bf65-70a3ae2331ae" />
+
 
 
 
