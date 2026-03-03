@@ -1,2 +1,104 @@
-"# Light-Sensor-IoT-" 
-"# Light-Sensor-IoT-" 
+# WiFi Light Sensor Monitoring System
+
+
+## 🎯 Project Overview
+
+This IoT project implements a comprehensive light monitoring solution that collects ambient light data in real-time and displays it through an intuitive web interface. The system uses ESP32 for data collection and WiFi transmission, with a Node.js backend for data processing and storage.
+
+## ✨ Key Features
+
+- **Real-time Monitoring**: Continuous light intensity measurement using BH1750 sensor
+- **WiFi Connectivity**: Wireless data transmission via ESP32
+- **Web Dashboard**: Interactive web interface for data visualization
+- **Data Persistence**: SQLite database for historical data storage
+- **Data Export**: CSV export functionality for data analysis
+- **Line Charts**: Visual representation of light intensity trends
+- **Pagination**: Efficient data browsing with customizable page sizes
+
+## 🔧 Hardware Components
+
+### PCB Design Specifications
+- **Size**: 7cm × 3cm (compact design)
+- **Layer**: 2-layer PCB
+- **Power Traces**: 24-25 mil width (handles WiFi peak current)
+- **Signal Traces**: 10 mil width
+- **Copper Pour**: Full GND plane on both layers for heat dissipation
+
+
+
+<img width="911" height="703" alt="{724AAEFE-A108-4B82-A2A6-C1E244EE5123}" src="https://github.com/user-attachments/assets/31b3d059-b66f-499a-99a6-17c05e9f50c3" />
+<img width="1202" height="477" alt="{54F1D695-76C1-47A6-922B-64C88FC60EC7}" src="https://github.com/user-attachments/assets/3f46a731-d146-4909-9b4a-576e4e953885" />
+<img width="1214" height="443" alt="{24AFFD49-AF94-4E3C-8B68-63BF6C2D32F3}" src="https://github.com/user-attachments/assets/c2479437-a2e8-48ed-801b-ca4c07abe4f3" />
+
+
+
+
+## 💻 Software Stack
+
+### Firmware (ESP32)
+- **Language**: C/C++ (ESP-IDF framework)
+- **Libraries**: 
+  - BH1750 driver
+  - WiFi library
+  - HTTP client
+- **Storage**: NVS (Non-Volatile Storage) for WiFi credentials
+
+### Backend
+- **Runtime**: Node.js
+- **Framework**: Express.js
+- **Database**: SQLite
+- **Features**:
+  - RESTful API endpoints
+  - Data validation
+  - Error handling
+  - CSV export functionality
+
+### Frontend
+- **Technologies**: HTML5, CSS3, JavaScript
+- **Charts**: Dynamic line chart visualization
+- **Features**:
+  - Real-time data display
+  - Date range filtering
+  - Pagination controls
+  - Responsive design
+
+## 📈 Data Flow
+
+1. **Data Collection**: BH1750 sensor measures ambient light in Lux
+2. **Data Processing**: ESP32 reads sensor data via I2C
+3. **Data Transmission**: ESP32 sends JSON payload to server via HTTP POST
+4. **Data Storage**: Server stores data in SQLite database
+5. **Data Visualization**: Frontend fetches and displays data via HTTP GET
+
+### JSON Data Format
+```json
+{
+  "device_id": "bh1750",
+  "lux": 320.83,
+  "timestamp": "2025-12-23 18:00:36"
+}
+```
+
+## 🎯 Web Interface Features
+
+### Dashboard Components
+- **Real-time Display**: Latest sensor reading with timestamp
+- **Line Chart**: Visualizes light intensity trends over time
+- **Data Table**: Paginated view of historical readings
+- **Date Filter**: Custom date range selection
+- **Export**: Download data as CSV for external analysis
+
+### Chart Visualization
+- X-axis: Timestamp (formatted)
+- Y-axis: Light intensity (Lux)
+- Interactive tooltips
+- Responsive design
+
+<img width="1018" height="818" alt="{B0A483CB-B83C-4291-851D-7AF75FB11FCE}" src="https://github.com/user-attachments/assets/49cb5aa4-1230-4bd1-8e06-d6afc26dc8f8" />
+
+
+
+
+## 🤝 Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
