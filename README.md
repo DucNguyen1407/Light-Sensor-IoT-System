@@ -26,9 +26,12 @@ This IoT project implements a comprehensive light monitoring solution that colle
 
 
 
-<img width="911" height="703" alt="{724AAEFE-A108-4B82-A2A6-C1E244EE5123}" src="https://github.com/user-attachments/assets/31b3d059-b66f-499a-99a6-17c05e9f50c3" />
-<img width="1202" height="477" alt="{54F1D695-76C1-47A6-922B-64C88FC60EC7}" src="https://github.com/user-attachments/assets/3f46a731-d146-4909-9b4a-576e4e953885" />
-<img width="1214" height="443" alt="{24AFFD49-AF94-4E3C-8B68-63BF6C2D32F3}" src="https://github.com/user-attachments/assets/c2479437-a2e8-48ed-801b-ca4c07abe4f3" />
+<img width="1237" height="953" alt="{8F514837-F5FA-4D86-8F13-A0FCF39B3A38}" src="https://github.com/user-attachments/assets/d9367567-16ae-4001-8479-79ca454220f0" />
+
+<img width="709" height="280" alt="{FAE5E07A-408F-491F-9583-0318D20D0B88}" src="https://github.com/user-attachments/assets/28731586-f16b-47b4-a1af-0202cfe0f660" />
+
+<img width="719" height="262" alt="{5878CBF8-9B60-4320-BC85-2A5D61C85664}" src="https://github.com/user-attachments/assets/99771e8a-9007-4c0f-adef-d65e17917021" />
+
 
 
 
