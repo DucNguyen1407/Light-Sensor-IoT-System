@@ -1,11 +1,11 @@
 # WiFi Light Sensor Monitoring System
 
 
-## 🎯 Project Overview
+## Project Overview
 
 This IoT project implements a comprehensive light monitoring solution that collects ambient light data in real-time and displays it through an intuitive web interface. The system uses ESP32 for data collection and WiFi transmission, with a Node.js backend for data processing and storage.
 
-## ✨ Key Features
+## Key Features
 
 - **Real-time Monitoring**: Continuous light intensity measurement using BH1750 sensor
 - **WiFi Connectivity**: Wireless data transmission via ESP32
@@ -15,7 +15,7 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - **Line Charts**: Visual representation of light intensity trends
 - **Pagination**: Efficient data browsing with customizable page sizes
 
-## 🔧 Hardware Components
+## Hardware Components
 
 ### PCB Design Specifications
 - **Size**: 7cm × 3cm (compact design)
@@ -36,7 +36,7 @@ This IoT project implements a comprehensive light monitoring solution that colle
 
 
 
-## 💻 Software Stack
+## Software Stack
 
 ### Firmware (ESP32)
 - **Language**: C/C++ (ESP-IDF framework)
@@ -65,7 +65,7 @@ This IoT project implements a comprehensive light monitoring solution that colle
   - Pagination controls
   - Responsive design
 
-## 📈 Data Flow
+## Data Flow
 
 1. **Data Collection**: BH1750 sensor measures ambient light in Lux
 2. **Data Processing**: ESP32 reads sensor data via I2C
@@ -82,7 +82,7 @@ This IoT project implements a comprehensive light monitoring solution that colle
 }
 ```
 
-## 🎯 Web Interface Features
+## Web Interface Features
 
 ### Dashboard Components
 - **Real-time Display**: Latest sensor reading with timestamp
@@ -103,6 +103,6 @@ This IoT project implements a comprehensive light monitoring solution that colle
 
 
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Please feel free to submit issues or pull requests.
