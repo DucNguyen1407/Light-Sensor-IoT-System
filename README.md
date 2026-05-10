@@ -103,6 +103,5 @@ This IoT project implements a comprehensive light monitoring solution that colle
 
 
 
-## Contributing
-
+## Contribution
 Contributions are welcome! Please feel free to submit issues or pull requests.
