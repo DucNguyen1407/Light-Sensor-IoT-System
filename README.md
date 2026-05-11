@@ -1,4 +1,4 @@
-# WiFi Light Sensor Monitoring System
+# Wi-Fi Light Sensor Monitoring System
 
 
 ## Project Overview
