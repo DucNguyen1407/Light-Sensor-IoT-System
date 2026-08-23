@@ -1,20 +1,20 @@
 let currentPage = 1;
 let limit = 10;
 let totalPages = 1;
-let myChart = null; // Biến lưu biểu đồ
+let myChart = null; // Variable to store chart instance
 
-// 1. Khởi tạo khi load trang
+// 1. Initialize when page loads
 document.addEventListener("DOMContentLoaded", () => {
-    loadDevices(); // Load danh sách thiết bị vào dropdown
-    fetchData();   // Load dữ liệu bảng
+    loadDevices(); // Load device list into dropdown
+    fetchData();   // Load table data
     
-    // Auto refresh mỗi 10s (không nên quá nhanh vì có phân trang)
+    // Auto refresh every 10s (should not be too fast because of pagination)
     setInterval(() => {
         if(currentPage === 1) fetchData(); 
     }, 10000);
 });
 
-// 2. Hàm lấy danh sách thiết bị cho Dropdown
+// 2. Function to fetch device list for Dropdown
 async function loadDevices() {
     try {
         const res = await fetch('/api/devices');
@@ -27,11 +27,11 @@ async function loadDevices() {
             select.appendChild(opt);
         });
     } catch (err) {
-        console.error("Lỗi load devices:", err);
+        console.error("Error loading devices:", err);
     }
 }
 
-// 3. Hàm Fetch Dữ liệu chính (có phân trang)
+// 3. Main fetch data function (with pagination)
 async function fetchData() {
     try {
         const res = await fetch(`/api/data?page=${currentPage}&limit=${limit}`);
@@ -41,19 +41,19 @@ async function fetchData() {
         const pagination = json.pagination;
         totalPages = pagination.totalPages;
 
-        // Render Bảng
+        // Render Table
         renderTable(data);
-        // Render Biểu đồ
+        // Render Chart
         renderChart(data);
-        // Cập nhật thông tin trang
-        document.getElementById('pageInfo').innerText = `Trang ${pagination.page} / ${pagination.totalPages}`;
+        // Update page information
+        document.getElementById('pageInfo').innerText = `Page ${pagination.page} / ${pagination.totalPages}`;
 
     } catch (err) {
-        console.error("Lỗi fetch data:", err);
+        console.error("Error fetching data:", err);
     }
 }
 
-// 4. Render Bảng
+// 4. Render Table
 function renderTable(data) {
     const tbody = document.getElementById('data-body');
     tbody.innerHTML = '';
@@ -69,24 +69,24 @@ function renderTable(data) {
     });
 }
 
-// 5. Render Biểu đồ (Chart.js)
+// 5. Render Chart (Chart.js)
 function renderChart(data) {
-    // Đảo ngược mảng để biểu đồ chạy từ trái qua phải (cũ -> mới)
-    // Vì bảng hiển thị mới nhất lên đầu, nhưng biểu đồ thì thời gian chạy xuôi
+    // Reverse array so the chart flows from left to right (old -> new)
+    // Since the table shows newest first, but chart time flows forward
     const chartData = [...data].reverse(); 
 
-    const labels = chartData.map(d => d.timestamp.split(' ')[1]); // Chỉ lấy giờ
+    const labels = chartData.map(d => d.timestamp.split(' ')[1]); // Get only time
     const luxValues = chartData.map(d => d.lux);
 
     const ctx = document.getElementById('luxChart').getContext('2d');
 
     if (myChart) {
-        // Nếu biểu đồ đã có, chỉ update dữ liệu
+        // If chart already exists, just update data
         myChart.data.labels = labels;
         myChart.data.datasets[0].data = luxValues;
         myChart.update();
     } else {
-        // Nếu chưa có, tạo mới
+        // If not, create a new one
         myChart = new Chart(ctx, {
             type: 'line',
             data: {
@@ -98,7 +98,7 @@ function renderChart(data) {
                     backgroundColor: 'rgba(78, 115, 223, 0.1)',
                     borderWidth: 2,
                     fill: true,
-                    tension: 0.3 // Làm mềm đường cong
+                    tension: 0.3 // Smooth the curve
                 }]
             },
             options: {
@@ -112,7 +112,7 @@ function renderChart(data) {
     }
 }
 
-// 6. Xử lý chuyển trang
+// 6. Handle pagination
 function changePage(step) {
     const nextPage = currentPage + step;
     if (nextPage > 0 && nextPage <= totalPages) {
@@ -123,24 +123,24 @@ function changePage(step) {
 
 function changeLimit() {
     limit = document.getElementById('limitSelect').value;
-    currentPage = 1; // Reset về trang 1
+    currentPage = 1; // Reset to page 1
     fetchData();
 }
 
-// 7. Hàm Xuất CSV
+// 7. Export CSV Function
 function exportCSV() {
     const deviceId = document.getElementById('deviceSelect').value;
     const startDate = document.getElementById('startDate').value;
     const endDate = document.getElementById('endDate').value;
 
     if (!deviceId || !startDate || !endDate) {
-        alert("Vui lòng chọn đầy đủ: Thiết bị, Ngày bắt đầu, Ngày kết thúc!");
+        alert("Please select all: Device, Start Date, End Date!");
         return;
     }
 
-    // Tạo URL query string
+    // Create URL query string
     const url = `/api/export-csv?device_id=${deviceId}&start_date=${startDate}&end_date=${endDate}`;
     
-    // Mở tab mới hoặc tải trực tiếp
+    // Open in new tab or download directly
     window.location.href = url;
 }

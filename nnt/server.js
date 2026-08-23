@@ -9,9 +9,9 @@ const port = 3000;
 app.use(express.json());
 app.use(express.static('front-end'));
 
-// Kết nối SQLite
+// Connect to SQLite
 const dbPath = path.resolve(__dirname, 'data/database.sqlite');
-// Tạo thư mục data nếu chưa có
+// Create data directory if it doesn't exist
 const dir = path.dirname(dbPath);
 if (!fs.existsSync(dir)){
     fs.mkdirSync(dir);
@@ -32,10 +32,10 @@ const db = new sqlite3.Database(dbPath, (err) => {
 
 // ---- API ENDPOINTS ----
 
-// 1. Nhận dữ liệu từ ESP32
+// 1. Receive data from ESP32
 app.post('/api/data', (req, res) => {
     const { device_id, lux } = req.body;
-    // Tạo timestamp giờ VN
+    // Create timestamp in Vietnam time
     const now = new Date();
     const offsetMs = 7 * 60 * 60 * 1000;
     const vnTime = new Date(now.getTime() + offsetMs);
@@ -53,14 +53,14 @@ app.post('/api/data', (req, res) => {
     });
 });
 
-// 2. Lấy dữ liệu CÓ PHÂN TRANG (Pagination) cho bảng và biểu đồ
+// 2. Get PAGINATED data for table and chart
 app.get('/api/data', (req, res) => {
-    // Mặc định lấy trang 1, 10 dòng mỗi trang nếu không truyền tham số
+    // Default to page 1, 10 rows per page if no parameters provided
     const page = parseInt(req.query.page) || 1;
     const limit = parseInt(req.query.limit) || 10;
     const offset = (page - 1) * limit;
 
-    // Query đếm tổng số dòng để tính số trang
+    // Query to count total rows for pagination
     const countSql = `SELECT COUNT(*) as total FROM sensor_data`;
     
     db.get(countSql, [], (err, row) => {
@@ -68,7 +68,7 @@ app.get('/api/data', (req, res) => {
         const totalRecords = row.total;
         const totalPages = Math.ceil(totalRecords / limit);
 
-        // Query lấy dữ liệu phân trang
+        // Query to get paginated data
         const dataSql = `SELECT * FROM sensor_data ORDER BY timestamp DESC LIMIT ? OFFSET ?`;
         db.all(dataSql, [limit, offset], (err, rows) => {
             if (err) return res.status(500).json({ error: err.message });
@@ -86,7 +86,7 @@ app.get('/api/data', (req, res) => {
     });
 });
 
-// 3. Lấy danh sách Device ID (để hiển thị vào dropdown chọn thiết bị)
+// 3. Get list of Device IDs (to display in device selection dropdown)
 app.get('/api/devices', (req, res) => {
     const sql = `SELECT DISTINCT device_id FROM sensor_data`;
     db.all(sql, [], (err, rows) => {
@@ -95,7 +95,7 @@ app.get('/api/devices', (req, res) => {
     });
 });
 
-// 4. XUẤT CSV (Quan trọng)
+// 4. EXPORT CSV (Important)
 app.get('/api/export-csv', (req, res) => {
     const { device_id, start_date, end_date } = req.query;
 
@@ -103,23 +103,23 @@ app.get('/api/export-csv', (req, res) => {
         return res.status(400).send("Please select Device, Start Date, and End Date.");
     }
 
-    // Chuyển định dạng input (nếu cần) để khớp với DB: 'YYYY-MM-DD HH:MM:SS'
-    // Lưu ý: Input datetime-local html trả về 'YYYY-MM-DDTHH:MM', cần thay T bằng khoảng trắng
+    // Convert input format (if needed) to match DB: 'YYYY-MM-DD HH:MM:SS'
+    // Note: html datetime-local input returns 'YYYY-MM-DDTHH:MM', need to replace T with space
     const startStr = start_date.replace('T', ' ');
     const endStr = end_date.replace('T', ' ');
 
     const sql = `SELECT * FROM sensor_data WHERE device_id = ? AND timestamp BETWEEN ? AND ? ORDER BY timestamp ASC`;
 
     db.all(sql, [device_id, startStr, endStr], (err, rows) => {
-        if (err) return res.status(500).send("Lỗi Database");
+        if (err) return res.status(500).send("Database Error");
 
-        // Tạo nội dung CSV thủ công (hoặc dùng thư viện fast-csv nếu muốn)
+        // Manually create CSV content (or use fast-csv library if preferred)
         let csvContent = "ID,Device ID,Lux,Timestamp\n"; // Header
         rows.forEach(row => {
             csvContent += `${row.id},${row.device_id},${row.lux},${row.timestamp}\n`;
         });
 
-        // Set header để trình duyệt hiểu đây là file tải về
+        // Set header so the browser understands this is a downloaded file
         res.setHeader('Content-Type', 'text/csv');
         res.setHeader('Content-Disposition', `attachment; filename=data_${device_id}_${Date.now()}.csv`);
         res.status(200).send(csvContent);
