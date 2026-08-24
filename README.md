@@ -1,6 +1,5 @@
 # Wi-Fi Light Sensor Monitoring System
 
-
 ## Project Overview
 
 This IoT project implements a comprehensive light monitoring solution that collects ambient light data in real-time and displays it through an intuitive web interface. The system uses ESP32 for data collection and WiFi transmission, with a Node.js backend for data processing and storage.
@@ -24,17 +23,19 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - **Signal Traces**: 10 mil width
 - **Copper Pour**: Full GND plane on both layers for heat dissipation
 
+### Hardware Gallery
 
+**1. ESP32 Schematic Design**
+<br>
+<img width="1237" alt="ESP32 Schematic Design" src="https://github.com/user-attachments/assets/d9367567-16ae-4001-8479-79ca454220f0" />
 
-<img width="1237" height="953" alt="{8F514837-F5FA-4D86-8F13-A0FCF39B3A38}" src="https://github.com/user-attachments/assets/d9367567-16ae-4001-8479-79ca454220f0" />
+**2. 3D PCB Layout**
+<br>
+<img width="709" alt="3D PCB Layout" src="https://github.com/user-attachments/assets/28731586-f16b-47b4-a1af-0202cfe0f660" />
 
-<img width="709" height="280" alt="{FAE5E07A-408F-491F-9583-0318D20D0B88}" src="https://github.com/user-attachments/assets/28731586-f16b-47b4-a1af-0202cfe0f660" />
-
-<img width="719" height="262" alt="{5878CBF8-9B60-4320-BC85-2A5D61C85664}" src="https://github.com/user-attachments/assets/99771e8a-9007-4c0f-adef-d65e17917021" />
-
-
-
-
+**3. 2D PCB Layout**
+<br>
+<img width="719" alt="2D PCB Layout" src="https://github.com/user-attachments/assets/99771e8a-9007-4c0f-adef-d65e17917021" />
 
 ## Software Stack
 
@@ -97,11 +98,34 @@ This IoT project implements a comprehensive light monitoring solution that colle
 - Interactive tooltips
 - Responsive design
 
-<img width="1145" height="834" alt="{CF54610A-CD9C-435D-B40D-D840E8C8FA32}" src="https://github.com/user-attachments/assets/c18394af-d797-4b0d-bf65-70a3ae2331ae" />
+**4. ESP32 Lux Dashboard**
+<br>
+<img width="1145" alt="ESP32 Lux Dashboard" src="https://github.com/user-attachments/assets/c18394af-d797-4b0d-bf65-70a3ae2331ae" />
 
+## Getting Started
 
+### 1. Hardware Wiring
+Connect the BH1750 sensor to the ESP32:
+- **VCC** -> **3V3**
+- **GND** -> **GND**
+- **SDA** -> **GPIO 21**
+- **SCL** -> **GPIO 22**
+- **ADD** -> **GND** (optional, sets I2C address to 0x23)
 
+### 2. Backend Setup
+1. Navigate to the `nnt` directory.
+2. Install dependencies: `npm install`
+3. Start the server: `node server.js`
+4. The server runs at `http://localhost:3000`. Get your local IP address for the firmware configuration.
 
+### 3. Firmware Setup
+1. Open `main/firmware.c` and update:
+   - Line 18-19: `ESP_WIFI_SSID` and `ESP_WIFI_PASS` with your WiFi credentials (or configure via menuconfig).
+   - Line 43: `WEB_SERVER_URL` with your computer's local IP address (e.g., `http://192.168.1.100:3000/api/data`).
+2. Build and flash the firmware using ESP-IDF:
+   ```bash
+   idf.py build flash monitor
+   ```
 
 ## Contribution
 
